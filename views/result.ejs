@@ -1,17 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title><%= title || 'Crypto Price Tracker' %></title>
+<link rel="stylesheet" href="/style.css" />
+
 </head>
 <body>
-    <h1>Crypto Price Result</h1>
-    <% if (error){ %>
-        <p style="color: red;">error</p>
-  <% }else{  %>
-    <h2><%= data.name.toUpperCase() %>:<%= data.price  %></h2>
-  <% } %>
-  <a href="/"> ← Back</a>
+  <main class="container">
+    <% if (error) { %>
+      <section class="error-section">
+        <p class="error"><%= error %></p>
+        <a href="/" class="button">← Back to Search</a>
+      </section>
+    <% } else if (data) { %>
+      <section class="result-section">
+        <h1 class="heading">Crypto Price Result</h1>
+
+        <div class="price-card">
+          <div class="crypto-info">
+            <img src="/icons/<%= data.name.toLowerCase() %>.svg" alt="<%= data.name %> icon" class="crypto-icon" onerror="this.style.display='none'" />
+            <h2 class="crypto-name"><%= data.amount %> <span class="crypto-symbol"><%= data.name.toUpperCase() %></span></h2>
+          </div>
+
+          <div class="price-info">
+            <p class="total-price">
+              <span>Total:</span>
+              <strong><%= data.price %></strong>
+              <span class="currency"><%= data.currency.toUpperCase() %></span>
+            </p>
+            <p class="unit-price">
+              <span>Unit price:</span>
+              <strong><%= data.unitPrice %></strong>
+              <span class="currency"><%= data.currency.toUpperCase() %></span>
+            </p>
+          </div>
+        </div>
+
+        <a href="/" class="button back-button">← Back to Search</a>
+      </section>
+    <% } else { %>
+      <section class="error-section">
+        <p class="error">No valid data to display.</p>
+        <a href="/" class="button">← Back to Search</a>
+      </section>
+    <% } %>
+  </main>
 </body>
 </html>
